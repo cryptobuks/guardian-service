@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  mongo:
+    image: docker.io/bitnami/mongodb:5.0
+    environment:
+      - MONGODB_USERNAME=guardian-service
+      - MONGODB_PASSWORD=admin
+      - MONGODB_DATABASE=guardian-service
+      - MONGODB_ROOT_PASSWORD=admin
+      - MONGODB_PRIMARY_ROOT_USER=root
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-vol:/bitnami
+
+volumes:
+  mongo-vol:

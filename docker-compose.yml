@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  guardian-service:
+    # image: docker.simplicy.io/guardian-service:latest
+    build: .
+    ports:
+      - "8100:8100"
+    environment:
+      - NODE_ENV=development
+      - JWKS_ENDPOINT=https://guardians.simplicy.io/.well-known/jwks
+      - DB_HOST=mongo
+      - DB_NAME=guardian-service
+      - DB_USER=guardian-service
+      - DB_PASSWORD=admin
+      - MONGO_URI_PREFIX=mongodb
+
+  mongo:
+    image: docker.io/bitnami/mongodb:5.0
+    environment:
+      - MONGODB_USERNAME=guardian-service
+      - MONGODB_PASSWORD=admin
+      - MONGODB_DATABASE=guardian-service
+      - MONGODB_ROOT_PASSWORD=admin
+      - MONGODB_PRIMARY_ROOT_USER=root
+    volumes:
+      - mongo-vol:/bitnami
+
+volumes:
+  mongo-vol:
