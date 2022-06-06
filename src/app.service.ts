@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { SERVICE } from './constants/app-strings';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getRoot() {
+    return { service: SERVICE };
   }
 }
