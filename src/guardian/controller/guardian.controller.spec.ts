@@ -5,7 +5,7 @@ import { CreateGuardianDto } from '../dto/guardian.dto';
 
 const testGuardian = {
   id: 1,
-  display_name: 'Test Company',
+  displayName: 'Test Company',
   description: 'This is a test company',
   name: 'Test Company',
   wallet: '0xBD659bE79a0017e30431e14FF0635495661C2480',
@@ -22,7 +22,7 @@ const testGuardian = {
 
 const publicData = [
   {
-    display_name: testGuardian.display_name,
+    displayName: testGuardian.displayName,
     description: testGuardian.description,
   },
 ];

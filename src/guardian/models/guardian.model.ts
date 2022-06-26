@@ -1,67 +1,72 @@
-import { Column, Entity, ObjectIdColumn } from 'typeorm';
-import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
+import {
+  Column,
+  Entity,
+  ObjectIdColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Unique,
+} from 'typeorm';
 
 @Entity()
-@ObjectType({ description: 'guardian ' })
-@Directive('@key(fields: "id")')
 export class Guardian {
-  @Field((type) => ID)
   @ObjectIdColumn()
   id: string;
 
   @Column()
-  @Field({ nullable: false })
-  registration_number: string;
+  @Unique('UQ_Guardian_registrationNumber', ['registrationNumber'])
+  registrationNumber: string;
 
   @Column()
-  @Directive('@upper')
-  display_name: string;
+  displayName: string;
 
   @Column()
-  @Field({ nullable: false })
   description: string;
 
   @Column()
-  @Field({ nullable: false })
+  @Unique('UQ_Guardian_wallet', ['wallet'])
   wallet: string;
 
   @Column()
-  @Field({ nullable: false })
   address: string;
 
   @Column()
-  @Field({ nullable: false })
   city: string;
 
   @Column()
-  @Field({ nullable: false })
   state: string;
 
   @Column()
-  @Field({ nullable: false })
   zip: string;
 
   @Column()
-  @Field({ nullable: false })
   country: string;
 
   @Column()
-  @Field({ nullable: false })
+  @Unique('UQ_Guardian_email', ['email'])
   email: string;
 
-  @Column()
-  @Field({ nullable: true })
+  @Column({ type: 'number' })
+  @Unique('UQ_Guardian_phonenumber', ['phonenumber'])
   phonenumber: string;
 
   @Column()
-  @Field({ nullable: false })
+  @Unique('UQ_Guardian_website', ['website'])
   website: string;
 
-  @Column()
-  @Field({ nullable: false })
-  creation_at: Date;
+  @Column({ type: 'bigint' })
+  @Unique('UQ_Guardian_identityCommitment', ['identityCommitment'])
+  identityCommitment: string;
 
-  @Column()
-  @Field({ nullable: false })
-  updated_at: Date;
+  @Column({ type: 'boolean', default: false })
+  public isApproved: boolean;
+
+  /*
+   * Create and Update Date Columns
+   */
+
+  @CreateDateColumn()
+  creationAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

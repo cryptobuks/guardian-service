@@ -1,10 +1,6 @@
 import { Controller, Body, Get, Post, Param } from '@nestjs/common';
 import { GuardianService } from '../service/guardian.service';
-import {
-  CreateGuardianDto,
-  PublicGuardianDto,
-  UpdateGuardianDto,
-} from '../dto/guardian.dto';
+import { CreateGuardianDto, PublicGuardianDto } from '../dto/guardian.dto';
 
 @Controller('guardians')
 export class GuardianController {
@@ -20,13 +16,11 @@ export class GuardianController {
     return this.guardianService.findOneBy(id);
   }
 
-  @Get('/registration_number/:registration_number')
+  @Get('/registrationNumber/:registrationNumber')
   getGuardianByRegistrationNumber(
-    @Param('registration_number') registration_number: string,
+    @Param('registrationNumber') registrationNumber: string,
   ): Promise<PublicGuardianDto> {
-    return this.guardianService.findOneByRegistrationNumber(
-      registration_number,
-    );
+    return this.guardianService.findOneByRegistrationNumber(registrationNumber);
   }
 
   @Get('/wallet/:wallet')
@@ -47,6 +41,7 @@ export class GuardianController {
   addGuardian(
     @Body() createGuardianDto: CreateGuardianDto,
   ): Promise<CreateGuardianDto> {
+    console.log('createGuardianDto', createGuardianDto);
     return this.guardianService.create(createGuardianDto);
   }
 
