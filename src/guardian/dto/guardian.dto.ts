@@ -1,200 +1,109 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArgsType, Field, Int, InputType } from '@nestjs/graphql';
 import {
-  IsDate,
   IsEmail,
   IsEthereumAddress,
-  IsNotEmpty,
+  IsNumberString,
   IsUrl,
-  Max,
-  Min,
 } from 'class-validator';
-import { ObjectID } from 'typeorm';
 
 export class CreateGuardianDto {
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  id: string;
+  registrationNumber: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  registration_number: string;
+  displayName: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  display_name: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   description: string;
 
-  @IsEthereumAddress()
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
+  @IsEthereumAddress()
   wallet: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  name: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  owner: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   address: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   city: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   state: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   zip: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   country: string;
 
   @ApiProperty()
   @IsEmail()
-  @IsNotEmpty()
-  @Field()
   email: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   phonenumber: string;
 
-  @IsUrl()
   @ApiProperty()
-  @IsNotEmpty()
+  @IsUrl()
   website: string;
 
   @ApiProperty()
-  @IsDate()
-  @IsNotEmpty()
-  creation_at: Date;
-
-  @ApiProperty()
-  @IsDate()
-  @IsNotEmpty()
-  updated_at: Date;
+  identityCommitment?: string;
 }
 
 export class UpdateGuardianDto {
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
   id: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  registration_number: string;
+  registrationNumber?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  display_name: string;
+  displayName?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  description: string;
+  description?: string;
 
+  @ApiProperty()
   @IsEthereumAddress()
-  @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  wallet: string;
+  wallet?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  name: string;
+  address?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  owner: string;
+  city?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  address: string;
+  state?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  city: string;
+  zip?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  state: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  zip: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  country: string;
+  country?: string;
 
   @ApiProperty()
   @IsEmail()
-  @IsNotEmpty()
-  @Field()
-  email: string;
+  email?: string;
 
   @ApiProperty()
-  @IsNotEmpty()
-  @Field()
-  phonenumber: string;
+  @IsNumberString()
+  phonenumber?: string;
 
+  @ApiProperty()
   @IsUrl()
-  @ApiProperty()
-  @IsNotEmpty()
-  website: string;
+  website?: string;
 
   @ApiProperty()
-  @IsDate()
-  @IsNotEmpty()
-  creation_at: Date;
-
-  @ApiProperty()
-  @IsDate()
-  @IsNotEmpty()
-  updated_at: Date;
+  identityCommitment?: bigint;
 }
 
 export class PublicGuardianDto {
   @ApiProperty()
-  registration_number: string;
+  registrationNumber: string;
 
   @ApiProperty()
-  display_name: string;
+  displayName: string;
 
   @ApiProperty()
   description: string;
@@ -207,16 +116,4 @@ export class PublicGuardianDto {
 
   @ApiProperty()
   website: string;
-}
-
-@ArgsType()
-export class GuardiansArgs {
-  @Field((type) => Int)
-  @Min(0)
-  skip = 0;
-
-  @Field((type) => Int)
-  @Min(1)
-  @Max(50)
-  take = 25;
 }

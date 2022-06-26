@@ -14,8 +14,8 @@ export class GuardianService {
   async findAll(): Promise<PublicGuardianDto[]> {
     return this.guardianRepository.find({
       select: [
-        'registration_number',
-        'display_name',
+        'registrationNumber',
+        'displayName',
         'description',
         'city',
         'country',
@@ -29,13 +29,13 @@ export class GuardianService {
   }
 
   async findOneByRegistrationNumber(
-    registration_number: string,
+    registrationNumber: string,
   ): Promise<PublicGuardianDto> {
     const guardian = await this.guardianRepository.findOneBy({
-      registration_number,
+      registrationNumber,
       select: [
-        'registration_number',
-        'display_name',
+        'registrationNumber',
+        'displayName',
         'description',
         'city',
         'country',
@@ -43,8 +43,8 @@ export class GuardianService {
       ],
     });
     const newGuardian = new PublicGuardianDto();
-    newGuardian.registration_number = guardian.registration_number;
-    newGuardian.display_name = guardian.display_name;
+    newGuardian.registrationNumber = guardian.registrationNumber;
+    newGuardian.displayName = guardian.displayName;
     newGuardian.description = guardian.description;
     newGuardian.city = guardian.city;
     newGuardian.country = guardian.country;
@@ -56,8 +56,8 @@ export class GuardianService {
     const guardian = await this.guardianRepository.findOneBy({
       wallet,
       select: [
-        'registration_number',
-        'display_name',
+        'registrationNumber',
+        'displayName',
         'description',
         'city',
         'country',
@@ -65,8 +65,8 @@ export class GuardianService {
       ],
     });
     const newGuardian = new PublicGuardianDto();
-    newGuardian.registration_number = guardian.registration_number;
-    newGuardian.display_name = guardian.display_name;
+    newGuardian.registrationNumber = guardian.registrationNumber;
+    newGuardian.displayName = guardian.displayName;
     newGuardian.description = guardian.description;
     newGuardian.city = guardian.city;
     newGuardian.country = guardian.country;
@@ -78,8 +78,8 @@ export class GuardianService {
     const guardian = await this.guardianRepository.findOneBy({
       email,
       select: [
-        'registration_number',
-        'display_name',
+        'registrationNumber',
+        'displayName',
         'description',
         'city',
         'country',
@@ -87,8 +87,8 @@ export class GuardianService {
       ],
     });
     const newGuardian = new PublicGuardianDto();
-    newGuardian.registration_number = guardian.registration_number;
-    newGuardian.display_name = guardian.display_name;
+    newGuardian.registrationNumber = guardian.registrationNumber;
+    newGuardian.displayName = guardian.displayName;
     newGuardian.description = guardian.description;
     newGuardian.city = guardian.city;
     newGuardian.country = guardian.country;
