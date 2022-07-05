@@ -11,10 +11,9 @@ import { Guardian } from './guardian/models/guardian.model';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mongodb',
+      url: process.env.DB_HOST,
       username: process.env.DB_USER,
       database: process.env.DB_NAME,
-      port: parseInt(process.env.DB_PORT, 10),
-      host: process.env.DB_HOST,
       entities: [Guardian],
       password: process.env.DB_PASSWORD,
       synchronize: true,

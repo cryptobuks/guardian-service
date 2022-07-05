@@ -13,6 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix(GLOBAL_API_PREFIX);
   app.useGlobalPipes(new ValidationPipe());
   setupSwagger(app);
-  await app.listen(process.env.PORT);
+  const port = process.env.PORT || 8080
+  await app.listen(port);
 }
 bootstrap();

@@ -1,37 +1,27 @@
-FROM node:latest
-# Copy app
-COPY . /home/simplicy.io/guardian-service
-WORKDIR /home/simplicy.io/
-RUN cd guardian-service \
-  && yarn \
-  && yar build \
-  && yarn install --only=production
+FROM node:16 AS builder
 
-FROM node:slim
-# Install dependencies
-RUN apt-get update \
-  && apt-get install -y gettext-base \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+ARG APP_PORT
 
-# Setup docker-entrypoint
-COPY docker/docker-entrypoint.sh usr/local/bin/docker-entrypoint.sh
-RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+# Create app directory
+WORKDIR /app
 
-# Add non root user
-RUN useradd -ms /bin/bash simplicy.io
-WORKDIR /home/simplicy.io/guardian-service
-COPY --from=0 /home/simplicy.io/guardian-service .
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+COPY package*.json ./
+COPY tsconfig.build.json ./
 
-RUN chown -R simplicy.io:simplicy.io /home/simplicy.io
+# Install app dependencies
+RUN yarn install
 
-# set project directory
-WORKDIR /home/simplicy.io/guardian-service
+COPY . .
 
-# Expose port
-EXPOSE 8100
+RUN yarn build
 
-USER simplicy.io
+FROM node:16-slim
 
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["start"]
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/tsconfig.build.json ./
+
+EXPOSE $PORT
+CMD [ "yarn", "start:prod" ]
